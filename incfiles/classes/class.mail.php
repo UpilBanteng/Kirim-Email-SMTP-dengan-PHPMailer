@@ -17,8 +17,6 @@ require_once '../incfiles/mailer/src/OAuth.php';
 require_once '../incfiles/mailer/src/POP3.php';
 require_once '../incfiles/mailer/src/SMTP.php';
 
-require_once '../incfiles/classes/class.helpers.php';
-
 try {
   class BUKUANE_MAILER {
     private $mail;
@@ -31,21 +29,21 @@ try {
       global $helper;
 
       // Server settings
-      $this->mail->SMTPDebug  = $helper->setOf('site_smtpDebug');
+      $this->mail->SMTPDebug  = 0;
       $this->mail->isSMTP();
-      $this->mail->Host       = $helper->setOf('site_smtpHost');
-      $this->mail->SMTPAuth   = $helper->setOf('site_smtpAuth');
-      $this->mail->Username   = $helper->setOf('site_smtpUser');
-      $this->mail->Password   = $helper->setOf('site_smtpPassword');
-      $this->mail->SMTPSecure = $helper->setOf('site_smtpSecure');
-      $this->mail->Port       = $helper->setOf('site_smtpPort');
+      $this->mail->Host       = 'tls://smtp.gmail.com';
+      $this->mail->SMTPAuth   = true;
+      $this->mail->Username   = 'email@anda.com;
+      $this->mail->Password   = 'PasswordAnda';
+      $this->mail->SMTPSecure = 'tls';
+      $this->mail->Port       = 587;
 
       //Recipients
-      $this->mail->setFrom($helper->setOf('site_smtpFrom'), $helper->setOf('site_situs'));
+      $this->mail->setFrom('no-reply@nuliskode.com', 'nuliskode.com');
       $this->mail->addAddress($to, $name);
-      $this->mail->addReplyTo($helper->setOf('site_smtpFrom'), $helper->setOf('site_situs'));
-      $this->mail->addCC($helper->setOf('site_smtpFrom'), $helper->setOf('site_situs'));
-      $this->mail->addBCC($helper->setOf('site_smtpFrom'), $helper->setOf('site_situs'));
+      $this->mail->addReplyTo('no-reply@nuliskode.com', 'nuliskode.com');
+      $this->mail->addCC('no-reply@nuliskode.com', 'nuliskode.com');
+      $this->mail->addBCC('no-reply@nuliskode.com', 'nuliskode.com');
 
       // Content
       $this->mail->isHTML(true);
